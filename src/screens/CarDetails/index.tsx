@@ -3,6 +3,7 @@ import React from 'react';
 import { Accessory } from '../../components/Accessory';
 import { ImageSlider } from '../../components/ImageSlider';
 import { Button } from '../../components/Button';
+import { BackButton } from '../../components/BackButton';
 
 import speedSvg from '../../assets/speed.svg'
 import accelerationSvg from '../../assets/acceleration.svg'
@@ -27,7 +28,6 @@ import {
   Accessories,
   Footer
 } from './styles';
-import { BackButton } from '../../components/BackButton';
 
 export function CarDetails(){
   return (
