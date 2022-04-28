@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "check-typescript": "tsc --noEmit",
     "check-eslint": "eslint './src/**/*{js,ts,jsx,tsx}'",
-    "lint": "yarn check-typescript && yarn check-eslint"
+    "lint": "yarn check-typescript && yarn check-eslint",
+    "api": "json-server ./src/services/server.json --host 192.168.2.111 --port 3333 --delay 700"
   },
   "keywords": [
     "react-native",
@@ -30,6 +31,7 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "@react-navigation/stack": "^6.2.1",
+    "axios": "^0.27.2",
     "expo": "~44.0.2",
     "expo-app-loading": "~1.3.0",
     "expo-font": "~10.0.4",
