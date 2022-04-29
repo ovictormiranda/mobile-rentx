@@ -1,5 +1,7 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { CarDTO } from '../../dtos/CarDTO';
 
 import { Accessory } from '../../components/Accessory';
 import { ImageSlider } from '../../components/ImageSlider';
@@ -30,53 +32,62 @@ import {
   Footer
 } from './styles';
 
+interface Params {
+  car: CarDTO;
+}
+
 export function CarDetails(){
   const navigation = useNavigation<any>();
+  const route = useRoute();
+  const { car } = route.params as Params;
 
   function handleConfirmRental() {
     navigation.navigate('Scheduling')
   }
 
+  function handleBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBack} />
       </Header>
 
       <CarImages>
         <ImageSlider
-          imagesUrl={['https://www.pngmart.com/files/21/Red-Tesla-Car-PNG-Photos.png']}
+          imagesUrl={car.photos}
         />
       </CarImages>
 
       <Content>
         <Details>
           <Description>
-            <Brand>Tesla</Brand>
-            <Name>Model S</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
           </Description>
 
           <Rent>
-            <Period>Ao dia</Period>
-            <Price>R$ 260</Price>
+            <Period>{car.rent.period}</Period>
+            <Price>R$ ${car.rent.price}</Price>
           </Rent>
         </Details>
 
         <Accessories>
-          <Accessory name="322" icon={speedSvg}/>
-          <Accessory name="2.4s" icon={accelerationSvg}/>
-          <Accessory name="1,020 HP" icon={forceSvg}/>
-          <Accessory name="Electrical" icon={gasolineSvg}/>
-          <Accessory name="Auto" icon={exchangeSvg}/>
-          <Accessory name="4 Pessoas" icon={peopleSvg}/>
+          {
+            car.accessories.map(accessory => (
+              <Accessory
+                key={accessory.type}
+                name={accessory.name}
+                icon={speedSvg}
+              />
+            ))
+
+          }
         </Accessories>
 
-        <About>
-          Ele é um dos veículos mais vendidos na gama da marca.
-          Esse sedã tem dois motores elétricos, um em cada eixo,
-          e tração integral. Pode alcançar 96 km/h em 2,4 segundos
-          na versão Performance
-        </About>
+        <About>{car.about}</About>
       </Content>
 
       <Footer>
