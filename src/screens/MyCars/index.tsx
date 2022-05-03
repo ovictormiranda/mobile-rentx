@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { BackButton } from '../../components/BackButton';
+import { Load, load } from '../../components/Load';
 
 import { Car } from '../../components/Car';
 import { CarDTO } from '../../dtos/CarDTO';
@@ -74,16 +75,19 @@ export function MyCars(){
         />
 
         <Title>
-          Escolha uma {'\n'}
-          data de início e {'\n'}
-          fim do aluguel
+          Seus agendamentos,{'\n'}
+          estão aqui.
+
         </Title>
         <Subtitle> Conforto, segurança e praticidade</Subtitle>
       </Header>
+      {
+        loading ? <Load /> :
+
       <Content>
         <Appointments>
           <AppointmentsTitle>Agendamentos feitos</AppointmentsTitle>
-          <AppointmentsQuantity>05</AppointmentsQuantity>
+          <AppointmentsQuantity>{cars.length}</AppointmentsQuantity>
         </Appointments>
 
         <FlatList
@@ -96,14 +100,14 @@ export function MyCars(){
               <CarFooter>
                 <CarFooterTitle>Periodo</CarFooterTitle>
                 <CarFooterPeriod>
-                  <CarFooterDate>18/06/2021</CarFooterDate>
+                  <CarFooterDate>{item.startDate}</CarFooterDate>
                   <AntDesign
                     name="arrowright"
                     size={20}
                     color={theme.colors.title}
                     style={{ marginHorizontal: 10}}
                   />
-                  <CarFooterDate>20/06/2021</CarFooterDate>
+                  <CarFooterDate>{item.endDate}</CarFooterDate>
                 </CarFooterPeriod>
               </CarFooter>
             </CarWrapper>
@@ -111,6 +115,7 @@ export function MyCars(){
         />
 
       </Content>
+      }
     </Container>
   );
 }
