@@ -143,7 +143,6 @@ export function CarDetails(){
                 icon={getAccessoryIcon(accessory.type)}
               />
             ))
-
           }
         </Accessories>
 
