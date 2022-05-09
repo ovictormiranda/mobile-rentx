@@ -58,7 +58,7 @@ export function CarDetails(){
       height: interpolate(
         scrollY.value,
         [0, 200],
-        [200, 95],
+        [200, 70],
         Extrapolate.CLAMP
       )
     }
@@ -99,12 +99,10 @@ export function CarDetails(){
         ]}
       >
         <Header>
-          <BackButton onPress={handleBack}/>
+          <BackButton onPress={handleBack} />
         </Header>
 
-        <Animated.View
-          style={[sliderCarsStyleAnimation]}
-        >
+        <Animated.View style={[sliderCarsStyleAnimation]}>
           <CarImages>
             <ImageSlider
               imagesUrl={car.photos}

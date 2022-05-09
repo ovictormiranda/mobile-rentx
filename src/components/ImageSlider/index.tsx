@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { FlatList, ViewToken } from 'react-native';
 
+import { Bullet } from '../Bullet';
+
 import {
   Container,
   ImageIndexes,
-  ImageIndex,
   CarImageWrapper,
   CarImage,
 } from './styles';
@@ -31,7 +32,7 @@ export function ImageSlider({ imagesUrl }: Props){
       <ImageIndexes>
         {
           imagesUrl.map((_, index) =>( // O map recebe 2 propriedades, o item e o index, quando não queremos utilizar o item, basta passar o underline para que ele seja ignorado
-            <ImageIndex
+            <Bullet
               key={String(index)}
               active={index === imageIndex}
             />
