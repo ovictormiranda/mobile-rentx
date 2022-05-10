@@ -14,6 +14,8 @@ import { Bullet } from '../../../components/Bullet';
 import { PasswordInput } from '../../../components/PasswordInput';
 import { Button } from '../../../components/Button';
 
+import { api } from '../../../services/api';
+
 import {
   Container,
   Header,
@@ -40,13 +42,13 @@ export function SignUpSecondStep(){
   const route = useRoute();
   const theme = useTheme();
 
-  const { user } = route.params as Params;
+  const { user } = route.params as Params;  //here, recovering data through params from the last route SignUpFirstStep
 
   function handleBack() {
     navigation.goBack();
   }
 
-  function handleRegister() {
+  async function handleRegister() {
     if (!password || !passwordConfirm) {
       return Alert.alert('Informe a senha e a confirmação de senha.');
     }
@@ -55,11 +57,23 @@ export function SignUpSecondStep(){
       return Alert.alert('Por favor, insira 2 senhas iguais.')
     }
 
-    navigation.navigate('Confirmation', {
-      nextScreenRoute: 'SignIn',
-      title: 'Conta criada!',
-      message: `Agore é só fazer login\ne aproveitar.`
+    //sending signUp information to the api
+    await api.post('/users', {
+      name: user.name, //name, email, and driver license comes from the last route SignUpFirstStep
+      email: user.email, // cause of that we had to pass this information as user.name
+      driver_license: user.driverLicense,
+      password,  //this comes from here, from this page/route
     })
+    .then(() =>{
+      navigation.navigate('Confirmation', {
+        nextScreenRoute: 'SignIn',
+        title: 'Conta criada!',
+        message: `Agore é só fazer login\ne aproveitar.`
+      });
+    })
+    .catch(() => {
+      Alert.alert('Opa!', 'Não foi possível cadastrar :/')
+    });
   }
 
 

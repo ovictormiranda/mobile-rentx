@@ -7,11 +7,13 @@ import {
 } from '@expo-google-fonts/archivo'
 import { useFonts, Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter'
 
-import AppLoading from 'expo-app-loading'
-import theme from './src/styles/theme'
-import { ThemeProvider } from 'styled-components/native'
+import AppLoading from 'expo-app-loading';
+import theme from './src/styles/theme';
+import { ThemeProvider } from 'styled-components/native';
+import { AppProvider } from './src/hooks';
 
-import { Routes } from './src/routes'
+import { Routes } from './src/routes';
+import { AuthProvider } from './src/hooks/auth';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +30,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   )
 }
